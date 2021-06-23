@@ -6,6 +6,10 @@ namespace Resources.Models
     {
         [Key]
         public int Id { get; set; }
+
+        [Required]
+        public string Account { get; set; }
+        
         [Required]
         public string Username { get; set; }
         [Required]
