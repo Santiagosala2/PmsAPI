@@ -17,7 +17,7 @@ using Microsoft.EntityFrameworkCore;
 namespace PmsAPI
 {
     public class Startup
-    {
+    {   
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -27,8 +27,18 @@ namespace PmsAPI
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {
-            
+        {   
+             services.AddCors(options =>
+            {
+                options.AddPolicy("allowClient",
+                                builder =>
+                                {
+                                    builder.WithOrigins("http://localhost:3000")
+                                    .AllowAnyHeader()
+                                    .AllowAnyMethod();
+                                });
+            }); 
+
             services.AddDbContext<ResourcesContext>(opt => opt.UseSqlServer
                 (Configuration.GetConnectionString("ResourcesConnection")));
             
@@ -55,6 +65,8 @@ namespace PmsAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            
+            app.UseCors("allowClient");
 
             app.UseAuthorization();
 
