@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Resources.Models;
 
 namespace Resources.Data
@@ -14,7 +16,7 @@ namespace Resources.Data
             _context = context;
         }
 
-        public void CreateResource(Resource res)
+        public async Task CreateResourceAsync(Resource res)
         {
             if(res == null)
             {
@@ -23,7 +25,7 @@ namespace Resources.Data
              
             Console.WriteLine(res);
 
-            _context.Resources.Add(res);
+            await _context.Resources.AddAsync(res);
         }
 
         public void DeleteResource(Resource res)
@@ -33,27 +35,27 @@ namespace Resources.Data
                 throw new ArgumentNullException(nameof(res));
             }
 
-            _context.Resources.Remove(res);
+           _context.Resources.Remove(res);
         }
 
-        public IEnumerable<Resource> GetAllResources()
+        public async Task<IEnumerable<Resource>> GetAllResourcesAsync()
         {
-            return _context.Resources.ToList();
+            return await _context.Resources.ToListAsync();
         }
 
-        public Resource GetResourceById(int id)
+        public async Task<Resource> GetResourceByIdAsync(int id)
         {
-            return _context.Resources.FirstOrDefault(p => p.Id == id);
+            return await _context.Resources.FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public bool SaveChanges()
+        public async Task<bool> SaveChangesAsync()
         {
-            return (_context.SaveChanges() >= 0);
+            return ( await _context.SaveChangesAsync() >= 0);
         }
 
         public void UpdateResource(Resource res)
         {
-            
+ 
         }
     }
 }

@@ -5,6 +5,7 @@ using Resources.Data;
 using Resources.Dtos;
 using Resources.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Resources.Controllers
 {   
@@ -24,17 +25,17 @@ namespace Resources.Controllers
         //private readonly MockresourceerRepo _repository = new MockresourceerRepo();
         //Get api/resources
         [HttpGet]
-        public ActionResult <IEnumerable<ResourceReadDto>> GetAllResources()
+        public async Task<IActionResult> GetAllResourcesAsync()
         {
-            var resourceItems = _repository.GetAllResources();
+            var resourceItems = await _repository.GetAllResourcesAsync();
             return Ok(_mapper.Map<IEnumerable<ResourceReadDto>>(resourceItems));
         }
 
         //Get api/resources/{id}        
         [HttpGet("{id}", Name="GetResourceById")]
-        public ActionResult <ResourceReadDto> GetResourceById(int id)
+        public async Task<IActionResult> GetResourceByIdAsync(int id)
         {
-            var resourceItem = _repository.GetResourceById(id);
+            var resourceItem = await _repository.GetResourceByIdAsync(id);
             if(resourceItem != null)
             {
                 return Ok(_mapper.Map<ResourceReadDto>(resourceItem));
@@ -44,22 +45,22 @@ namespace Resources.Controllers
 
         //POST api/resources/{id} 
         [HttpPost]
-        public ActionResult <ResourceReadDto> CreateResource([FromBody] ResourceCreateDto resourceCreateDto) 
+        public async Task<IActionResult> CreateResourceAsync([FromBody] ResourceCreateDto resourceCreateDto) 
         {
             var resourceModel = _mapper.Map<Resource>(resourceCreateDto);
-            _repository.CreateResource(resourceModel);
-            _repository.SaveChanges();
+            await _repository.CreateResourceAsync(resourceModel);
+            await _repository.SaveChangesAsync();
 
             var resourceReadDto = _mapper.Map<ResourceReadDto>(resourceModel);
 
-            return CreatedAtRoute(nameof(GetResourceById), new {Id = resourceReadDto.Id},resourceReadDto);
+            return CreatedAtRoute(nameof(GetResourceByIdAsync), new {Id = resourceReadDto.Id},resourceReadDto);
         }
 
         //PUT api/resources/{id} 
         [HttpPut("{id}")]
-        public ActionResult <ResourceUpdateDto> Updateresource(int id,[FromBody] ResourceUpdateDto resourceUpdateDto) 
+        public async Task<IActionResult> UpdateresourceAsync(int id,[FromBody] ResourceUpdateDto resourceUpdateDto) 
         {
-            var resourceModelFromRepo = _repository.GetResourceById(id);
+            var resourceModelFromRepo = await _repository.GetResourceByIdAsync(id);
             if(resourceModelFromRepo == null)
             {
                 return NotFound();
@@ -69,22 +70,22 @@ namespace Resources.Controllers
 
             _repository.UpdateResource(resourceModelFromRepo);
         
-            _repository.SaveChanges();
+            await _repository.SaveChangesAsync();
 
             return NoContent();
 
         }
         //DELETE api/resources/{id}
         [HttpDelete("{id}")]
-        public ActionResult DeleteResource(int id)
+        public async Task<IActionResult> DeleteResource(int id)
         {
-            var resourceModelFromRepo = _repository.GetResourceById(id);
+            var resourceModelFromRepo = await _repository.GetResourceByIdAsync(id);
             if(resourceModelFromRepo == null)
             {
                 return NotFound();
             }
             _repository.DeleteResource(resourceModelFromRepo);
-            _repository.SaveChanges();
+            await _repository.SaveChangesAsync();
             return NoContent();
 
         }
