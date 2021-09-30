@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Resources.Models;
+using Users.Models;
 
-namespace Resources.Data
+namespace Resources.Repo
 {
     public interface IResourcesRepo
     {
@@ -12,6 +13,5 @@ namespace Resources.Data
         Task CreateResourceAsync(Resource res);
         void UpdateResource(Resource res);
         void DeleteResource(Resource res);
-
     }
 }

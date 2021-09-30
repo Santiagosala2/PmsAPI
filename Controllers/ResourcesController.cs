@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using AutoMapper;
-using Resources.Data;
+using Resources.Repo;
 using Resources.Dtos;
 using Resources.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -53,7 +53,7 @@ namespace Resources.Controllers
 
             var resourceReadDto = _mapper.Map<ResourceReadDto>(resourceModel);
 
-            return CreatedAtRoute(nameof(GetResourceByIdAsync), new {Id = resourceReadDto.Id},resourceReadDto);
+            return CreatedAtRoute(nameof(GetResourceByIdAsync), new {Id = resourceReadDto.ResourceID},resourceReadDto);
         }
 
         //PUT api/resources/{id} 

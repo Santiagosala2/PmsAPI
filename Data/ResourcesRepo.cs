@@ -4,14 +4,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Resources.Models;
+using Microsoft.EntityFrameworkCore.Storage;
+using Users.Models;
+using Entities.Models;
+using Data;
 
-namespace Resources.Data
+namespace Resources.Repo
 {
-    public class SqlResourcesRepo : IResourcesRepo
+    public class ResourcesRepo : IResourcesRepo
     {
-        private ResourcesContext _context;
+        private  DataContext _context;
 
-        public SqlResourcesRepo(ResourcesContext context)
+        public ResourcesRepo(DataContext context)
         {
             _context = context;
         }
@@ -23,8 +27,6 @@ namespace Resources.Data
                 throw new ArgumentNullException(nameof(res));
             }
              
-            Console.WriteLine(res);
-
             await _context.Resources.AddAsync(res);
         }
 
@@ -45,7 +47,7 @@ namespace Resources.Data
 
         public async Task<Resource> GetResourceByIdAsync(int id)
         {
-            return await _context.Resources.FirstOrDefaultAsync(p => p.Id == id);
+            return await _context.Resources.FirstOrDefaultAsync(p => p.ResourceID == id);
         }
 
         public async Task<bool> SaveChangesAsync()

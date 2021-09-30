@@ -5,7 +5,7 @@ namespace Resources.Dtos
     public class ResourceReadDto
    {
         [Key]
-        public int Id { get; set; }
+        public int ResourceID { get; set; }
         [Required]
         public string Account { get; set; }
         [Required]

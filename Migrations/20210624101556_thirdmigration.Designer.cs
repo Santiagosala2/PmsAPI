@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Resources.Data;
+using Data;
 
 namespace PmsAPI.Migrations
 {
-    [DbContext(typeof(ResourcesContext))]
+    [DbContext(typeof(DataContext))]
     [Migration("20210624101556_thirdmigration")]
     partial class thirdmigration
     {
