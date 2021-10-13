@@ -8,11 +8,25 @@ using Users.Models;
 
 namespace Tokens.Models
 {
-    public class Token
-    {   [Key]
+    public class TokenReadDto
+    {
+        public TokenReadDto()
+        {
+
+        }
+
+        public TokenReadDto(int usrId)
+        {
+
+            UserID = usrId;
+            TokenString = Guid.NewGuid().ToString();
+            ExpiryDate = DateTime.Now.AddMinutes(30);
+        }
+                
+        [Key]
         public int TokenID {get; set;}
         
-        public int UserID { get; set; }
+        public int UserID { get; }
         [Required]
         public string TokenString { get; set; }
         [Required]

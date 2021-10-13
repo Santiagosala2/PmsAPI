@@ -4,14 +4,16 @@ using DataStore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace PmsAPI.Migrations
 {
     [DbContext(typeof(DataStoreContext))]
-    partial class ResourcesContextModelSnapshot : ModelSnapshot
+    [Migration("20211002014425_fifthMigration")]
+    partial class fifthMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -150,7 +152,7 @@ namespace PmsAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SaltedHashedPassword")
+                    b.Property<string>("SaltHashedPassword")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

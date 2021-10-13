@@ -1,8 +1,12 @@
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Users.Dtos
 {
-    public class UserCreateDto
+    public class UserReadDto
     {
         [Required]
         public string Username { get; set; }
@@ -12,5 +16,6 @@ namespace Users.Dtos
 
         [Required]
         public string Password { get; set; }
+
     }
 }

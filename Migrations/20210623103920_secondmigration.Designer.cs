@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Data;
+using DataStore;
 
 namespace PmsAPI.Migrations
 {
-    [DbContext(typeof(DataContext))]
+    [DbContext(typeof(DataStoreContext))]
     [Migration("20210623103920_secondmigration")]
     partial class secondmigration
     {

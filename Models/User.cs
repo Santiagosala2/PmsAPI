@@ -17,18 +17,25 @@ namespace Users.Models
         public int UserID { get; set; }
         [Required]
         public string Username { get; set; }
+
         [Required]
-        public string Password { get; set; }
+        public string Email { get; set; }
+
+        [Required]
+        public string SaltedHashedPassword { get; set; }
+
+        [Required]
+        public string Salt { get; set;}
 
         [InverseProperty(nameof(User))]
         public virtual Entity Entity { get; set; }
 
         [InverseProperty(nameof(User))]
-        public virtual ICollection<Token> Tokens { get; set; }
+        public virtual ICollection<TokenReadDto> Tokens { get; set; }
 
         public User ()
         {
-            Tokens = new HashSet<Token>();
+            Tokens = new HashSet<TokenReadDto>();
         }
     }
 

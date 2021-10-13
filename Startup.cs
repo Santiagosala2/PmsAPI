@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Data;
+using DataStore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -14,7 +14,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Resources.Repo;
-using Users.Repo;
+using Auth;
 
 namespace PmsAPI
 {
@@ -41,14 +41,15 @@ namespace PmsAPI
                                 });
             }); 
 
-            services.AddDbContext<DataContext>(opt => opt.UseSqlServer
+            services.AddDbContext<DataStoreContext>(opt => opt.UseSqlServer
                 (Configuration.GetConnectionString("ResourcesConnection")));
             
             services.AddControllers();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IResourcesRepo,ResourcesRepo>();
-            services.AddScoped<IUsersRepo, UsersRepo>();
+            services.AddScoped<ICustomUserManager, CustomUserManager>();
+            services.AddScoped<ICustomTokenManager, CustomTokenManager>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PmsAPI", Version = "v1" });

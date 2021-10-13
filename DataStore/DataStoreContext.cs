@@ -6,18 +6,18 @@ using Tokens.Models;
 using Users.Models;
 using Accounts.Models;
 
-namespace Data
+namespace DataStore
 {
-    public class DataContext : DbContext
+    public class DataStoreContext : DbContext
     {
-        public DataContext(DbContextOptions<DataContext> opt) : base(opt)
+        public DataStoreContext(DbContextOptions<DataStoreContext> opt) : base(opt)
         {
             
         }
 
         public DbSet<Resource> Resources { get; set; }
         public DbSet<Group> Groups { get; set; }
-        public DbSet<Token> Tokens { get; set; }
+        public DbSet<TokenReadDto> Tokens { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Entity> Entities { get; set; }
         public DbSet<Account> Accounts { get; set; }
