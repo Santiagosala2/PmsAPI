@@ -32,7 +32,7 @@ namespace Auth.Controllers
         {
             var userModel = _mapper.Map<User>(user);
             userModel.SaltedHashedPassword = user.Password;
-            var (authResult, token) = await _customUserManager.AuthenticateAsync(userModel.Username, userModel.SaltedHashedPassword);
+            var (authResult, token) = await _customUserManager.AuthenticateAsync(userModel.Email, userModel.SaltedHashedPassword);
             string errorMessage = "User could not be authenticated";
             if (authResult)
             {

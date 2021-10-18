@@ -54,15 +54,15 @@ namespace Auth
 
         }
 
-        public async Task<(bool,string)> AuthenticateAsync(string userName , string password)
+        public async Task<(bool,string)> AuthenticateAsync(string email , string password)
         {
 
-            if (userName == null || password == null)
+            if (email == null || password == null)
             {
-                throw new ArgumentNullException(nameof(userName));
+                throw new ArgumentNullException(nameof(email));
             }
 
-            var findUser = await _context.Users.FirstOrDefaultAsync(u => u.Username == userName);
+            var findUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
             bool authResult = false;
 
             if (findUser is not null)

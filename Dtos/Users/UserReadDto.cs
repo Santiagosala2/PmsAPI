@@ -8,10 +8,7 @@ namespace Users.Dtos
 {
     public class UserReadDto
     {
-        [Required]
-        public string Username { get; set; }
-
-        [Required]
+         [Required]
         public string Email { get; set; }
 
         [Required]
