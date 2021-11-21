@@ -49,7 +49,7 @@ namespace Auth.Controllers
 
         }
 
-        [HttpPost("getinfo")]
+        [HttpPost("getinfo", Name = "GetUserInfoByTokenAsync")]
         public async Task<IActionResult> GetUserInfoByTokenAsync([FromBody] TokenReadDto token)
         {
             var result = await _customTokenManager.GetUserInfoByTokenAsync(token.TokenString);
@@ -84,7 +84,7 @@ namespace Auth.Controllers
 
                 if (result)
                 {
-                    return Ok(new { token });
+                    return CreatedAtRoute(nameof(GetUserInfoByTokenAsync) , new { }, new { token });
                 }
 
                 if (userModel.Username is null)
