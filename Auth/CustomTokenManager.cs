@@ -45,5 +45,16 @@ namespace Auth
             }      
             return null;
         }
+
+        public async Task<(bool,string)> FindRecentTokenAsync(int userId)
+        {
+            var token = await _context.Tokens.FirstOrDefaultAsync(x => x.UserID == userId && x.ExpiryDate >
+            DateTime.Now);
+            if (token is not null)
+            {
+                return (true,token.TokenString);
+            }
+            return (false,null);
+        }
     }
 }

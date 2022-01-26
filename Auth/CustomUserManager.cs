@@ -72,8 +72,16 @@ namespace Auth
           
             if (authResult)
             { 
-                var (tokenSaved, token) = await _customTokenManager.CreateTokenAsync(findUser.UserID);
-                if (tokenSaved) return (authResult, token);             
+
+                var (isRecentToken, recentToken ) = await _customTokenManager.FindRecentTokenAsync(findUser.UserID);
+
+                if (!isRecentToken) 
+                {
+                    var (tokenSaved, token) = await _customTokenManager.CreateTokenAsync(findUser.UserID);
+                    if (tokenSaved) return (authResult, token);             
+                }
+
+                return (authResult, recentToken ); 
             }
             
             return (false,"");
